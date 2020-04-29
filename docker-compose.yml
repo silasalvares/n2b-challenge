@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+  webapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: gunicorn wsgi:webapi -k gevent --worker-connections 1000
+    networks:
+      - m2b-challenge-net
+    expose:
+      - 8000
+
+  nginx:
+    build: ./nginx
+    networks:
+      - m2b-challenge-net
+    ports:
+      - 8000:80
+    depends_on:
+      - web
+
+networks:
+  m2b-challenge-net:
+    driver: bridge
