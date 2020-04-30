@@ -19,7 +19,7 @@ class DatasetHandler():
         return df
 
     def filter(self, filter_info):
-        filters = self._get_filters(filter_info.get('filter_data', []), self.df)
+        filters = self._get_filters(filter_info.get('filter_data', {}), self.df)
         page = filter_info.get('page', 1) * self.page_size
         
         if len(filters) > 0:

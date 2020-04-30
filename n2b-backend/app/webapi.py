@@ -10,11 +10,11 @@ dataset_handler = DatasetHandler('winemag-data-130k-v2.csv')
 
 @webapi.route('/', methods=['GET'])
 def api_info():
-    return jsonify({})
+    return make_json_response(msg='Wine Reviews API')
 
 @webapi.route('/search/', methods=['POST'])
 def search():
-    request_data = FilterSchema().load(request.json)
-    result = dataset_handler.filter(request_data)
+    request_data = request.json if request.json is not None else {}
+    result = dataset_handler.filter(FilterSchema().load(request_data))
     return make_json_response(data=SearchResultSchema().dump(result, many=True))
     
