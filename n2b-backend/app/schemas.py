@@ -13,7 +13,8 @@ class Pagination(msh.Schema):
 
 class FilterSchema(msh.Schema):
     filter_data = msh.fields.Nested(WineReviewSchema, default={})
-    page = msh.fields.Int(default=1)
+    page = msh.fields.Int()
+    page_size = msh.fields.Int()
 
 class SearchResultSchema(msh.Schema):
     country = msh.fields.Str()

@@ -3,10 +3,9 @@ from decimal import Decimal
 
 class DatasetHandler():
     
-    def __init__(self, dataset='', page_size=10):
+    def __init__(self, dataset=''):
         self.df = self._preprocessing(pd.read_csv(dataset))
         self.df_size = self.df.shape[0]
-        self.page_size = page_size
 
     def _preprocessing(self, df):
         for col in df:
@@ -20,13 +19,14 @@ class DatasetHandler():
 
     def filter(self, filter_info):
         filters = self._get_filters(filter_info.get('filter_data', {}), self.df)
-        page = filter_info.get('page', 1) * self.page_size
+        page_size = filter_info.get('page_size', 10)
+        page = filter_info.get('page', 1) * page_size
         
         if len(filters) > 0:
             return (self.df[ eval(' & '.join(filters))].head(page)
-                    .tail(self.page_size).to_dict(orient='records'))
+                    .tail(page_size).to_dict(orient='records'))
         else:
-            return self.df.head(page).tail(self.page_size).to_dict(orient='records')
+            return self.df.head(page).tail(page_size).to_dict(orient='records')
     
     def _get_filters(self, filter_data, df):
         filters = []
