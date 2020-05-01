@@ -23,24 +23,26 @@ class DatasetHandler():
         page = filter_info.get('page', 1) * page_size
         
         if len(filters) > 0:
-            return (self.df[ eval(' & '.join(filters))].head(page)
-                    .tail(page_size).to_dict(orient='records'))
+            reviews = self.df[ eval(' & '.join(filters))]
+            reviews_page = reviews.head(page).tail(page_size).to_dict(orient='records')
+            return {'page': page, 'total_records': len(reviews), 'reviews': reviews_page }
         else:
-            return self.df.head(page).tail(page_size).to_dict(orient='records')
+            reviews = self.df.head(page).tail(page_size).to_dict(orient='records')
+            return {'page': page, 'total_records': self.df_size, 'reviews': reviews }
     
     def _get_filters(self, filter_data, df):
         filters = []
 
         if filter_data.get('country', False):
-            filters.append("(self.df['country'] == '%s')" % filter_data.get('country'))
+            filters.append("(self.df['country'].str.lower() == '%s')" % filter_data.get('country').lower())
         if filter_data.get('description', False):
-            filters.append("(self.df['description'].str.contains('%s'))" % filter_data.get('description'))
+            filters.append("(self.df['description'].str.lower().str.contains('%s'))" % filter_data.get('description').lower())
         if filter_data.get('points', False):
             filters.append("(self.df['points'] == int('%s'))" % str(filter_data.get('points')))
         if filter_data.get('price', False):
             filters.append("(self.df['price'] == Decimal('%s'))" % str(filter_data.get('price')))
         if filter_data.get('variety', False):
-            filters.append("(self.df['variety'] == '%s')" % filter_data.get('variety'))
+            filters.append("(self.df['variety'].str.lower() == '%s')" % filter_data.get('variety').lower())
 
         return filters
 

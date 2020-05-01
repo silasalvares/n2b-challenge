@@ -8,20 +8,7 @@ class WineReviewSchema(msh.Schema):
     price = msh.fields.Decimal()
     variety = msh.fields.String()
 
-class Pagination(msh.Schema):
-    page = msh.fields.Int()
-
 class FilterSchema(msh.Schema):
     filter_data = msh.fields.Nested(WineReviewSchema, default={})
     page = msh.fields.Int()
     page_size = msh.fields.Int()
-
-class SearchResultSchema(msh.Schema):
-    country = msh.fields.Str()
-    description = msh.fields.Str()
-    points = msh.fields.Int()
-    price = msh.fields.Decimal()
-    variety = msh.fields.String()
-
-    class Meta:
-        json_module = simplejson
