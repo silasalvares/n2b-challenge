@@ -78,6 +78,8 @@ $ docker-compose build
 ```sh
 $ docker-compose up
 ```
+O frontend responderá em: http://localhost:80
+O backend responderá em: http://localhost:8080
 
 ### Exemplo de Consulta
 ```sh
