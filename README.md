@@ -12,26 +12,56 @@ Requisitos:
     - variety
   - Demonstre uma possível arquitetura para essa aplicação para que ela se torne resistente a muitos acessos simultâneos, explicando o porquê de cada uma das tecnolgias escolhidas.
 
-### Resumo da solução
+## Resumo da solução
 
 Construção da API com o Flask, deserialização/serialização e validação com o Marshmallow e manipulação/tratamento dos dados utilizando Pandas. 
+
+## Arquitetura
+
+As tecnologias escolhidas para tratamento de concorrência e prevenção de sobrecarga foi a seguinte:
+
+### Nginx
+O Nginx foi utilizado como servidor WEB devido a sua capacidade de tratar acessos simultâneos.  A sua natureza orientada a eventos e o fato de reduzir  a criação de processos no servidor, o torna uma boa escolha na arquitetura desejada.
+
+### Gunicorn (gevent)
+O servidor de aplicações escolhido foi o Gunicorn, utilizando a biblioteca "gevent" para processamento assíncrono. O Gunicorn funciona gerenciando processos filhos através de um principal, isso permite um tratamento eficiente das requisições concorrentes.
+ 
 
 ## Passos para execução
 
 ### Execução isolada (Desenvolvimento)
-#### Criação do ambiente virtual
+
+##### Requisitos
+- python 3
+- node (npm)
+
+#### 1 - Backend
+##### Criação do ambiente virtual
 ```sh
 virtualenv -p python3 env
 source env/bin/activate
 ```
-#### Instalação dos requisitos
+##### Instalação dos requisitos
 ```sh
-$ cd n2b-backend
-$ pip install -r requirements.txt
+(env)$ cd n2b-backend
+(env)$ pip install -r requirements.txt
 ```
-#### Execução do servidor de desenvolvimento
+##### Execução do servidor de desenvolvimento
 ```sh
-$ python run.py
+(env)$ python run.py
+* Running on http://127.0.0.1:5000/
+```
+
+#### 2 - Frontend
+##### Instalação dos requisitos
+```
+$ cd n2b-frontend
+$ npm i
+```
+##### Execução do servidor de desenvolvimento
+```
+$ npx ng serve
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
 ```
 
 ### Execução utilizando o docker (Produção)
