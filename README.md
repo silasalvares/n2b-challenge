@@ -84,6 +84,7 @@ $ docker-compose up
 POST /search/
 { 
 	"page": 1,
+  "page_size": 10,
 	"filters": {
 		"country": "Brazil"
 	}
