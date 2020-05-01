@@ -1,4 +1,4 @@
-FROM node:10.9.0-alpine as node
+FROM node:10.13-alpine as node
 
 WORKDIR /usr/src/app
 
@@ -8,4 +8,4 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build --prod
+RUN npx ng build --prod
