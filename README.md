@@ -85,7 +85,7 @@ POST /search/
 { 
 	"page": 1,
   "page_size": 10,
-	"filters": {
+	"filter_data": {
 		"country": "Brazil"
 	}
 }
