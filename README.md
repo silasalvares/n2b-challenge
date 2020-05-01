@@ -63,7 +63,7 @@ $ npm i
 $ npx ng serve
 ** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
 ```
-
+a
 ### Execução utilizando o docker (Produção)
 
 ##### Requisitos
@@ -78,3 +78,14 @@ $ docker-compose build
 ```sh
 $ docker-compose up
 ```
+
+### Exemplo de Consulta
+```sh
+POST /search/
+{ 
+	"page": 1,
+	"filters": {
+		"country": "Brazil"
+	}
+}
+``` 
