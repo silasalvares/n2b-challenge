@@ -2,23 +2,28 @@ version: '3.1'
 
 services:
   webapi:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    command: gunicorn wsgi:webapi -k gevent --worker-connections 1000
+    build: ./n2b-backend
     networks:
       - m2b-challenge-net
     expose:
-      - 8000
+      - 5000
+    command: gunicorn wsgi:webapi -k gevent --worker-connections 1000 -b 0.0.0.0:5000
+
+  frontend: 
+    build: ./n2b-frontend
+    networks:
+      - m2b-challenge-net
 
   nginx:
     build: ./nginx
     networks:
       - m2b-challenge-net
     ports:
-      - 8000:80
+      - 8000:8000
+      - 5000:5000
     depends_on:
-      - web
+      - frontend
+      - webapi
 
 networks:
   m2b-challenge-net:

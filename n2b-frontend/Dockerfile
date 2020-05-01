@@ -1,11 +1,11 @@
-FROM tiangolo/node-frontend:10 as build-stage
+FROM node:10.9.0-alpine as node
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY package*.json /app/
+COPY package*.json ./
 
-COPY ./ /app/
+RUN npm install
 
-ARG configuration=production
+COPY . .
 
-RUN npm run build -- --output-path=./dist/out --configuration $configuration
+RUN npm run build --prod
