@@ -65,6 +65,11 @@ $ npx ng serve
 ```
 
 ### Execução utilizando o docker (Produção)
+
+##### Requisitos
+- docker
+- docker-compose
+
 #### Build
 ```sh
 $ docker-compose build
